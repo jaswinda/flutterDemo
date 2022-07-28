@@ -20,18 +20,14 @@ class _HomeScreenState extends State<HomeScreen> {
         children: [
           const MyComponent(height: 50),
           Text(counter.toString(), style: const TextStyle(fontSize: 30)),
-          ElevatedButton(
-              onPressed: () {
-                counter = counter + 1;
-                setState(() {});
-              },
-              child: const Text("Click Me")),
+          ElevatedButton(onPressed: () => add(), child: const Text("Click Me")),
           ElevatedButton(
               onPressed: () {
                 Navigator.push(
                     context,
                     MaterialPageRoute(
                         builder: (context) => SecondScreen(
+                              add: add,
                               counter: counter,
                             )));
               },
@@ -58,5 +54,10 @@ class _HomeScreenState extends State<HomeScreen> {
         ],
       )),
     );
+  }
+
+  add() {
+    counter = counter + 1;
+    setState(() {});
   }
 }
