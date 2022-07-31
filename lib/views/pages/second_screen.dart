@@ -1,22 +1,21 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:my_first_flutter_project/views/components/my_button.dart';
+import '../../controller/counter.dart';
 
 class SecondScreen extends StatefulWidget {
-  final int counter;
-  final add;
-  const SecondScreen({Key? key, required this.counter, required this.add})
-      : super(key: key);
+  const SecondScreen({Key? key}) : super(key: key);
 
   @override
   State<SecondScreen> createState() => _SecondScreenState();
 }
 
 class _SecondScreenState extends State<SecondScreen> {
-  var myCounter = 0;
+  final counter = Get.find<Counter>();
+
   @override
   void initState() {
     super.initState();
-    myCounter = widget.counter;
   }
 
   @override
@@ -25,40 +24,24 @@ class _SecondScreenState extends State<SecondScreen> {
       child: Scaffold(
         body: Column(
           children: [
-            Center(
-              child: Text(
-                myCounter.toString(),
-                style: const TextStyle(fontSize: 50),
-              ),
-            ),
+            Obx(() => Center(
+                  child: Text(counter.count.toString(),
+                      style: const TextStyle(fontSize: 30)),
+                )),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
                 MyButton(
-                  onTap: () => mySecondAdd(),
-                  text: "+",
-                ),
-                MyButton(
-                  onTap: () {},
-                  text: "-",
-                )
+                    onTap: () {
+                      counter.increment();
+                    },
+                    text: "Add"),
+                MyButton(onTap: () {}, text: "Subtract"),
               ],
-            ),
-            MyButton(
-              onTap: () {
-                Navigator.pop(context);
-              },
-              text: "Back",
             )
           ],
         ),
       ),
     );
-  }
-
-  mySecondAdd() {
-    myCounter++;
-    widget.add();
-    setState(() {});
   }
 }

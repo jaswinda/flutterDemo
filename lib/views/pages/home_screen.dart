@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:my_first_flutter_project/views/components/my_row_component.dart';
+import 'package:get/get.dart';
 import 'package:my_first_flutter_project/views/pages/second_screen.dart';
+import '../../controller/counter.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);
@@ -10,7 +11,7 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  int counter = 1;
+  final counter = Get.put(Counter());
 
   @override
   Widget build(BuildContext context) {
@@ -18,46 +19,20 @@ class _HomeScreenState extends State<HomeScreen> {
       child: Scaffold(
           body: Column(
         children: [
-          const MyComponent(height: 50),
-          Text(counter.toString(), style: const TextStyle(fontSize: 30)),
-          ElevatedButton(onPressed: () => add(), child: const Text("Click Me")),
+          Obx(() => Text(counter.count.toString(),
+              style: const TextStyle(fontSize: 30))),
           ElevatedButton(
               onPressed: () {
-                Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => SecondScreen(
-                              add: add,
-                              counter: counter,
-                            )));
+                counter.increment();
+              },
+              child: const Text("Click Me")),
+          ElevatedButton(
+              onPressed: () {
+                Get.to(const SecondScreen());
               },
               child: const Text("Go To next Page"))
-          // Row(mainAxisAlignment: MainAxisAlignment.center,
-          //     // crossAxisAlignment: CrossAxisAlignment.end,
-          //     children: [
-          //       Container(
-          //         width: 50,
-          //         height: 100,
-          //         color: Colors.blue,
-          //       ),
-          //       Container(
-          //         width: 100,
-          //         height: 200,
-          //         color: Colors.pink,
-          //       ),
-          //       Container(
-          //         width: 200,
-          //         height: 250,
-          //         color: Colors.red,
-          //       ),
-          //     ]),
         ],
       )),
     );
-  }
-
-  add() {
-    counter = counter + 1;
-    setState(() {});
   }
 }
