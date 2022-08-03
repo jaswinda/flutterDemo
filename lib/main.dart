@@ -6,6 +6,6 @@ void main() {
   runApp(MaterialApp(
       home: GetMaterialApp(
     title: "My First Flutter Project",
-    home: const HomeScreen(),
+    home: HomeScreen(),
   )));
 }
