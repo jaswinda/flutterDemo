@@ -3,29 +3,35 @@ import 'package:flutter/material.dart';
 class MyField extends StatelessWidget {
   final TextEditingController controller;
   final String text;
+  final bool obscureText;
   final myValidator;
   const MyField(
       {Key? key,
       required this.controller,
       this.text = "Email",
-      this.myValidator})
+      this.myValidator,
+      this.obscureText = false})
       : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return TextFormField(
-      controller: controller,
-      obscureText: true,
-      decoration: InputDecoration(
-        labelText: 'Enter your $text',
-        border: const OutlineInputBorder(),
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 10),
+      child: TextFormField(
+        controller: controller,
+        obscureText: obscureText,
+        decoration: InputDecoration(
+          labelText: 'Enter your $text',
+          border: const OutlineInputBorder(),
+        ),
+        validator: (value) {
+          // return null;
+          if (value!.isEmpty) {
+            return "$text is required";
+          }
+          return myValidator(value);
+        },
       ),
-      validator: (value) {
-        if (value!.isEmpty) {
-          return "$text is required";
-        }
-        return myValidator(value);
-      },
     );
   }
 }
