@@ -75,9 +75,6 @@ class HomeScreen extends StatelessWidget {
                     text: "Confirm Password",
                     obscureText: true,
                     controller: confirmPasswordController,
-                    myValidator: (value) {
-                      return null;
-                    },
                   ),
                   MyButton(onTap: () {
                     var isFormValid = formKey.currentState!.validate();

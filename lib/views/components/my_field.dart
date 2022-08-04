@@ -4,7 +4,7 @@ class MyField extends StatelessWidget {
   final TextEditingController controller;
   final String text;
   final bool obscureText;
-  final myValidator;
+  final Function? myValidator;
   const MyField(
       {Key? key,
       required this.controller,
@@ -29,7 +29,7 @@ class MyField extends StatelessWidget {
           if (value!.isEmpty) {
             return "$text is required";
           }
-          return myValidator(value);
+          return myValidator!(value);
         },
       ),
     );
