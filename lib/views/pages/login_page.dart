@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:my_first_flutter_project/views/components/my_button.dart';
 import 'package:my_first_flutter_project/views/components/my_field.dart';
 
-class HomeScreen extends StatelessWidget {
+class LoginPage extends StatelessWidget {
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
   final confirmPasswordController = TextEditingController();
@@ -10,7 +10,7 @@ class HomeScreen extends StatelessWidget {
   final nameController = TextEditingController();
   final phoneController = TextEditingController();
   final formKey = GlobalKey<FormState>();
-  HomeScreen({Key? key}) : super(key: key);
+  LoginPage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -28,7 +28,7 @@ class HomeScreen extends StatelessWidget {
                     height: 200,
                     width: 200,
                   ),
-                  const Text("Register a New Account",
+                  const Text("Login",
                       style: TextStyle(
                           fontSize: 20,
                           fontWeight: FontWeight.bold,
@@ -43,27 +43,6 @@ class HomeScreen extends StatelessWidget {
                     },
                   ),
                   MyField(
-                    text: "Username",
-                    controller: nameController,
-                    myValidator: (value) {
-                      return null;
-                    },
-                  ),
-                  MyField(
-                    text: "Phone",
-                    controller: nameController,
-                    myValidator: (value) {
-                      return null;
-                    },
-                  ),
-                  MyField(
-                    text: "Name",
-                    controller: nameController,
-                    myValidator: (value) {
-                      return null;
-                    },
-                  ),
-                  MyField(
                     text: "Password",
                     obscureText: true,
                     controller: passwordController,
@@ -71,18 +50,38 @@ class HomeScreen extends StatelessWidget {
                       return null;
                     },
                   ),
-                  MyField(
-                    text: "Confirm Password",
-                    obscureText: true,
-                    controller: confirmPasswordController,
-                  ),
                   MyButton(onTap: () {
                     var isFormValid = formKey.currentState!.validate();
                     if (isFormValid) {
-                      var data = {"email": emailController.text};
-                      print(data);
+                      if (emailController.text == "admin@gmail.com" &&
+                          passwordController.text == "password") {}
                     }
-                  })
+                  }),
+                  const Padding(
+                    padding: EdgeInsets.all(8.0),
+                    child: Text("Forgot Password?",
+                        style: TextStyle(
+                            fontSize: 16,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.black)),
+                  ),
+                  const Padding(
+                    padding: EdgeInsets.all(8.0),
+                    child: Text("Don't have an account?",
+                        style: TextStyle(
+                            fontSize: 16,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.black)),
+                  ),
+                  InkWell(
+                    onTap: () {},
+                    child: const Text("Register",
+                        style: TextStyle(
+                          color: Colors.blue,
+                          fontSize: 15,
+                          fontWeight: FontWeight.bold,
+                        )),
+                  ),
                 ],
               ),
             ),

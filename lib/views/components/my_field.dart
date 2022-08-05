@@ -29,7 +29,10 @@ class MyField extends StatelessWidget {
           if (value!.isEmpty) {
             return "$text is required";
           }
-          return myValidator!(value);
+          if (myValidator != null) {
+            return myValidator!(value);
+          }
+          return null;
         },
       ),
     );
