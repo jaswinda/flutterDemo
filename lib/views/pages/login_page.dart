@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:my_first_flutter_project/controller/authentication_controller.dart';
 import 'package:my_first_flutter_project/views/components/my_button.dart';
 import 'package:my_first_flutter_project/views/components/my_field.dart';
 
@@ -10,6 +12,7 @@ class LoginPage extends StatelessWidget {
   final nameController = TextEditingController();
   final phoneController = TextEditingController();
   final formKey = GlobalKey<FormState>();
+  final authentication = Get.put(Authentication());
   LoginPage({Key? key}) : super(key: key);
 
   @override
@@ -53,8 +56,11 @@ class LoginPage extends StatelessWidget {
                   MyButton(onTap: () {
                     var isFormValid = formKey.currentState!.validate();
                     if (isFormValid) {
-                      if (emailController.text == "admin@gmail.com" &&
-                          passwordController.text == "password") {}
+                      var data = {
+                        "email": emailController.text,
+                        "password": passwordController.text
+                      };
+                      authentication.login(data);
                     }
                   }),
                   const Padding(
