@@ -1,19 +1,49 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:my_first_flutter_project/controller/authentication_controller.dart';
+import 'package:my_first_flutter_project/utils/shared_preds.dart';
 import 'package:my_first_flutter_project/views/components/my_button.dart';
 import 'package:my_first_flutter_project/views/components/my_field.dart';
+import 'package:my_first_flutter_project/views/pages/home_page.dart';
 
-class LoginPage extends StatelessWidget {
+class LoginPage extends StatefulWidget {
+  const LoginPage({Key? key}) : super(key: key);
+
+  @override
+  State<LoginPage> createState() => _LoginPageState();
+}
+
+class _LoginPageState extends State<LoginPage> {
   final emailController = TextEditingController();
+
   final passwordController = TextEditingController();
+
   final confirmPasswordController = TextEditingController();
+
   final usernameController = TextEditingController();
+
   final nameController = TextEditingController();
+
   final phoneController = TextEditingController();
+
   final formKey = GlobalKey<FormState>();
+
   final authentication = Get.put(Authentication());
-  LoginPage({Key? key}) : super(key: key);
+  final AuthService authService = AuthService();
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    checkifAUthenticated();
+  }
+
+  checkifAUthenticated() async {
+    var token = await authService.getToken();
+    if (token != null) {
+      Get.offAll(const MyHomePage());
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
