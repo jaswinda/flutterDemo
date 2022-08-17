@@ -29,21 +29,10 @@ class _LoginPageState extends State<LoginPage> {
   final formKey = GlobalKey<FormState>();
 
   final authentication = Get.put(Authentication());
-  final AuthService authService = AuthService();
 
-  @override
-  void initState() {
-    // TODO: implement initState
-    super.initState();
-    checkifAUthenticated();
-  }
 
-  checkifAUthenticated() async {
-    var token = await authService.getToken();
-    if (token != null) {
-      Get.offAll(const MyHomePage());
-    }
-  }
+ 
+ 
 
   @override
   Widget build(BuildContext context) {
