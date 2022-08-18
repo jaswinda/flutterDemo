@@ -21,7 +21,7 @@ class _MyHomePageState extends State<MyHomePage> {
 
   final _map = <AppTab, TabBuilder>{
     AppTab.feed: () {
-      return const TabOne();
+      return TabOne();
     },
     AppTab.colors: () {
       return Column(

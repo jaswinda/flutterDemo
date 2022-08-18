@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:my_first_flutter_project/controller/authentication_controller.dart';
 import 'package:my_first_flutter_project/views/components/my_button.dart';
 import 'package:my_first_flutter_project/views/components/my_field.dart';
 import 'package:my_first_flutter_project/views/pages/login_page.dart';
@@ -12,6 +13,7 @@ class RegisterPage extends StatelessWidget {
   final nameController = TextEditingController();
   final phoneController = TextEditingController();
   final formKey = GlobalKey<FormState>();
+  final authentication = Get.put(Authentication());
   RegisterPage({Key? key}) : super(key: key);
 
   @override
@@ -81,8 +83,14 @@ class RegisterPage extends StatelessWidget {
                   MyButton(onTap: () {
                     var isFormValid = formKey.currentState!.validate();
                     if (isFormValid) {
-                      var data = {"email": emailController.text};
-                      Get.to(LoginPage());
+                      var data = {
+                        "email": emailController.text,
+                        "password": passwordController.text,
+                        "username": usernameController.text,
+                        "name": nameController.text,
+                        "phone": phoneController.text
+                      };
+                      authentication.SignUp(data);
                     }
                   }),
                   const Padding(
@@ -91,7 +99,7 @@ class RegisterPage extends StatelessWidget {
                   ),
                   InkWell(
                     onTap: () {
-                      Get.to(LoginPage());
+                      Get.to(const LoginPage());
                     },
                     child: const Text("Login",
                         style: TextStyle(

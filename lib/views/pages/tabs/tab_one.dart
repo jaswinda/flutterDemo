@@ -1,12 +1,27 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:my_first_flutter_project/utils/shared_preds.dart';
+import 'package:my_first_flutter_project/views/pages/loader.dart';
 
 class TabOne extends StatelessWidget {
-  const TabOne({Key? key}) : super(key: key);
+  final AuthService authService = AuthService();
+  TabOne({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      child: const Text('Tab One'),
+    return SafeArea(
+      child: Column(
+        children: [
+          Container(
+              child: ElevatedButton(
+                  onPressed: () => logout(), child: const Text("Logout"))),
+        ],
+      ),
     );
+  }
+
+  logout() async {
+    await authService.removeToken();
+    Get.offAll(const Loader());
   }
 }

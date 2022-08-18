@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:my_first_flutter_project/controller/authentication_controller.dart';
-import 'package:my_first_flutter_project/utils/shared_preds.dart';
 import 'package:my_first_flutter_project/views/components/my_button.dart';
 import 'package:my_first_flutter_project/views/components/my_field.dart';
-import 'package:my_first_flutter_project/views/pages/home_page.dart';
+import 'package:my_first_flutter_project/views/pages/register_page.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({Key? key}) : super(key: key);
@@ -15,24 +14,11 @@ class LoginPage extends StatefulWidget {
 
 class _LoginPageState extends State<LoginPage> {
   final emailController = TextEditingController();
-
   final passwordController = TextEditingController();
-
-  final confirmPasswordController = TextEditingController();
-
-  final usernameController = TextEditingController();
-
-  final nameController = TextEditingController();
-
-  final phoneController = TextEditingController();
 
   final formKey = GlobalKey<FormState>();
 
   final authentication = Get.put(Authentication());
-
-
- 
- 
 
   @override
   Widget build(BuildContext context) {
@@ -99,7 +85,7 @@ class _LoginPageState extends State<LoginPage> {
                             color: Colors.black)),
                   ),
                   InkWell(
-                    onTap: () {},
+                    onTap: () => Get.to(RegisterPage()),
                     child: const Text("Register",
                         style: TextStyle(
                           color: Colors.blue,
