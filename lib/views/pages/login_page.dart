@@ -18,7 +18,7 @@ class _LoginPageState extends State<LoginPage> {
 
   final formKey = GlobalKey<FormState>();
 
-  final authentication = Get.put(Authentication());
+  final authentication = Get.find<Authentication>();
 
   @override
   Widget build(BuildContext context) {

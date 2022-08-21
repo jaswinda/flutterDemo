@@ -44,4 +44,22 @@ class Authentication extends GetxController {
       print('Request failed with status: ${response.statusCode}.');
     }
   }
+
+  logout() async {
+    var token_ = await authService.getToken();
+    var url = Uri.parse(LOGOUT_API);
+    var response = await http.post(url, body: {"token": token_});
+    if (response.statusCode == 200) {
+      var jsonResponse = jsonDecode(response.body) as Map<String, dynamic>;
+      if (jsonResponse["success"]) {
+        await authService.removeToken();
+        Get.offAll(const LoginPage());
+        showMessage(message: jsonResponse["message"], isSuccess: true);
+      } else {
+        showMessage(message: jsonResponse["message"], isSuccess: false);
+      }
+    } else {
+      print('Request failed with status: ${response.statusCode}.');
+    }
+  }
 }

@@ -13,7 +13,7 @@ class RegisterPage extends StatelessWidget {
   final nameController = TextEditingController();
   final phoneController = TextEditingController();
   final formKey = GlobalKey<FormState>();
-  final authentication = Get.put(Authentication());
+  final authentication = Get.find<Authentication>();
   RegisterPage({Key? key}) : super(key: key);
 
   @override
