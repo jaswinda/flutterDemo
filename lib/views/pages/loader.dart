@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:my_first_flutter_project/utils/shared_preds.dart';
-import 'package:my_first_flutter_project/views/pages/home_page.dart';
-import 'package:my_first_flutter_project/views/pages/login_page.dart';
+import 'package:my_first_flutter_project_admin/utils/shared_preds.dart';
+import 'package:my_first_flutter_project_admin/views/pages/home_page.dart';
+import 'package:my_first_flutter_project_admin/views/pages/login_page.dart';
 
 class Loader extends StatefulWidget {
   const Loader({Key? key}) : super(key: key);

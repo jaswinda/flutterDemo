@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:my_first_flutter_project/controller/authentication_controller.dart';
-import 'package:my_first_flutter_project/views/components/my_button.dart';
-import 'package:my_first_flutter_project/views/components/my_field.dart';
-import 'package:my_first_flutter_project/views/pages/login_page.dart';
+import 'package:my_first_flutter_project_admin/controller/authentication_controller.dart';
+import 'package:my_first_flutter_project_admin/views/components/my_button.dart';
+import 'package:my_first_flutter_project_admin/views/components/my_field.dart';
+import 'package:my_first_flutter_project_admin/views/pages/login_page.dart';
 
 class RegisterPage extends StatelessWidget {
   final emailController = TextEditingController();

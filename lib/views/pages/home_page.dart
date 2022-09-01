@@ -1,7 +1,10 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
-import 'package:my_first_flutter_project/views/pages/tabs/tab_one.dart';
+import 'package:get/get.dart';
+import 'package:my_first_flutter_project_admin/controller/authentication_controller.dart';
+import 'package:my_first_flutter_project_admin/views/pages/loader.dart';
+import 'package:my_first_flutter_project_admin/views/pages/tabs/tab_one.dart';
 import 'package:tabnavigator/tabnavigator.dart';
 
 class MyHomePage extends StatefulWidget {
@@ -29,11 +32,22 @@ class _MyHomePageState extends State<MyHomePage> {
       );
     },
     AppTab.info: () {
+      final authentication = Get.find<Authentication>();
       return Column(
-        children: const [],
+        children: [
+          Container(
+              child: ElevatedButton(
+                  onPressed: () async {
+                    await authentication.logout();
+                    Get.offAll(const Loader());
+                  },
+                  child: const Text("Logout"))),
+        ],
       );
     }
   };
+
+  logout() async {}
 
   Widget _buildBody() {
     return TabNavigator(

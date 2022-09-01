@@ -1,10 +1,10 @@
 import 'dart:convert';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
-import 'package:my_first_flutter_project/utils/api.dart';
-import 'package:my_first_flutter_project/utils/shared_preds.dart';
-import 'package:my_first_flutter_project/views/pages/home_page.dart';
-import 'package:my_first_flutter_project/views/pages/login_page.dart';
+import 'package:my_first_flutter_project_admin/utils/api.dart';
+import 'package:my_first_flutter_project_admin/utils/shared_preds.dart';
+import 'package:my_first_flutter_project_admin/views/pages/home_page.dart';
+import 'package:my_first_flutter_project_admin/views/pages/login_page.dart';
 
 import '../utils/constants.dart';
 
