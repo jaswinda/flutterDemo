@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:my_first_flutter_project_admin/controller/category_controller.dart';
 import 'package:my_first_flutter_project_admin/utils/constants.dart';
 import 'package:my_first_flutter_project_admin/views/components/my_button.dart';
 import 'package:my_first_flutter_project_admin/views/components/my_field.dart';
@@ -9,6 +10,7 @@ class AddEditCategoryForm extends StatelessWidget {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   final TextEditingController _nameController = TextEditingController();
   final TextEditingController _descriptionController = TextEditingController();
+  final CategroyController categoryController = Get.put(CategroyController());
   AddEditCategoryForm({Key? key, this.title = "Add Category"})
       : super(key: key);
 
@@ -30,6 +32,12 @@ class AddEditCategoryForm extends StatelessWidget {
                   MyField(
                     text: "Category Name",
                     controller: _nameController,
+                    myValidator: (value) {
+                      if (value!.length < 3) {
+                        return "Category name must be at least 3 characters";
+                      }
+                      return null;
+                    },
                   ),
                   MyField(
                     text: "Category description",
@@ -37,11 +45,19 @@ class AddEditCategoryForm extends StatelessWidget {
                   ),
                 ],
               ),
-              MyButton(
+              Obx(() => MyButton(
+                  isLodaing: categoryController.loading.value,
                   onTap: () {
-                    Get.back();
+                    var data = {
+                      'name': _nameController.text,
+                      'description': _descriptionController.text
+                    };
+                    var isValidated = _formKey.currentState!.validate();
+                    if (isValidated) {
+                      categoryController.add(data);
+                    }
                   },
-                  text: 'Save'),
+                  text: 'Save')),
             ],
           ),
         ),

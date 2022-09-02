@@ -1,18 +1,34 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:my_first_flutter_project_admin/controller/product_controller.dart';
 import 'package:my_first_flutter_project_admin/utils/constants.dart';
 import 'package:my_first_flutter_project_admin/views/components/my_button.dart';
 import 'package:my_first_flutter_project_admin/views/components/my_field.dart';
 
-class AddEditProductForm extends StatelessWidget {
-  final ImagePicker _picker = ImagePicker();
+class AddEditProductForm extends StatefulWidget {
   final String title;
-  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
-  final TextEditingController _nameController = TextEditingController();
-  final TextEditingController _descriptionController = TextEditingController();
-  AddEditProductForm({Key? key, this.title = "Add Product"}) : super(key: key);
 
+  const AddEditProductForm({Key? key, this.title = "Add Product"})
+      : super(key: key);
+
+  @override
+  State<AddEditProductForm> createState() => _AddEditProductFormState();
+}
+
+class _AddEditProductFormState extends State<AddEditProductForm> {
+  final ImagePicker _picker = ImagePicker();
+
+  PickedFile? pickedFile;
+
+  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+
+  final TextEditingController _nameController = TextEditingController();
+
+  final TextEditingController _descriptionController = TextEditingController();
+  final ProductController productController = Get.put(ProductController());
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -26,7 +42,7 @@ class AddEditProductForm extends StatelessWidget {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Text(title, style: const TextStyle(fontSize: 20)),
+                Text(widget.title, style: const TextStyle(fontSize: 20)),
                 Column(
                   children: [
                     MyField(
@@ -40,27 +56,49 @@ class AddEditProductForm extends StatelessWidget {
                   ],
                 ),
                 InkWell(
-                  onTap: () async {
-                    final pickedFile = await _picker.getImage(
-                      source: ImageSource.gallery,
-                    );
-                    if (pickedFile != null) {
-                      Get.back();
-                    }
-                  },
-                  child: Container(
-                    width: Get.width / 2,
-                    height: Get.height / 4,
-                    decoration: BoxDecoration(
-                      color: Colors.grey,
-                      borderRadius: BorderRadius.circular(10),
-                    ),
-                    child: const Icon(Icons.add_a_photo),
-                  ),
-                ),
+                    onTap: () async {
+                      pickedFile = await _picker.getImage(
+                        source: ImageSource.gallery,
+                      );
+                      setState(() {});
+                      if (pickedFile != null) {
+                        // Get.back();
+                      }
+                    },
+                    child: (pickedFile == null)
+                        ? Container(
+                            width: Get.width / 2,
+                            height: Get.height / 4,
+                            decoration: BoxDecoration(
+                              color: Colors.grey,
+                              borderRadius: BorderRadius.circular(10),
+                            ),
+                            child: const Icon(Icons.add_a_photo),
+                          )
+                        : Container(
+                            width: Get.width / 2,
+                            height: Get.height / 4,
+                            decoration: BoxDecoration(
+                              //image from file
+                              image: DecorationImage(
+                                  image: FileImage(
+                                    File(pickedFile!.path),
+                                  ),
+                                  fit: BoxFit.cover),
+                              color: Colors.grey,
+                              borderRadius: BorderRadius.circular(10),
+                            ),
+                            child: const Icon(Icons.add_a_photo),
+                          )),
                 MyButton(
                     onTap: () {
-                      Get.back();
+                      if (_formKey.currentState!.validate()) {
+                        var data = {
+                          "name": _nameController.text,
+                          "description": _descriptionController.text
+                        };
+                        productController.add(data, pickedFile);
+                      }
                     },
                     text: 'Save'),
               ],

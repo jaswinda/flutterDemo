@@ -9,7 +9,7 @@ import 'package:my_first_flutter_project_admin/views/pages/login_page.dart';
 import '../utils/constants.dart';
 
 class Authentication extends GetxController {
-  final _token = ''.obs;
+ 
   final authService = AuthService();
 
   login(data) async {
