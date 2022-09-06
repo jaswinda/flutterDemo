@@ -10,7 +10,7 @@ class AddEditCategoryForm extends StatelessWidget {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   final TextEditingController _nameController = TextEditingController();
   final TextEditingController _descriptionController = TextEditingController();
-  final CategroyController categoryController = Get.put(CategroyController());
+  final CategroyController categoryController = Get.find<CategroyController>();
   AddEditCategoryForm({Key? key, this.title = "Add Category"})
       : super(key: key);
 
